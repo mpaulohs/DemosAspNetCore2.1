@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NotificationsPNotify.Data;
 using NotificationsPNotify.Models;
 
 namespace NotificationsPNotify.Controllers
 {
-    public class ClientesController : Controller
+    public class ClientesController : BaseController
     {
         private readonly PNotifyDbContext _context;
 
@@ -43,11 +40,11 @@ namespace NotificationsPNotify.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(cliente);
-                await _context.SaveChangesAsync();
-                TempData["success"] = "Dados salvo com sucesso !";
-                PNotify.Success(, "");
+                await _context.SaveChangesAsync();                
+                MessageError("Dados salvo com sucesso !");
                 return RedirectToAction(nameof(Index));
             }
+            
             return View(cliente);
         }
 
